@@ -1,0 +1,59 @@
+run_name: stl10_smoketest
+seed: 0
+
+data:
+  dataset_root: ./data
+  batch_size: 32
+  num_workers: 2
+  pin_memory: true
+  context_crop_ratio: 0.6
+  target_crop_ratio: 0.5
+  drop_last: false
+  subset_size: 200
+
+model:
+  encoder: resnet18
+  feature_dim: 512
+  projector:
+    hidden_dim: 256
+    output_dim: 256
+    num_layers: 2
+  predictor:
+    hidden_dim: 256
+    output_dim: 256
+    num_layers: 2
+  ema_momentum: 0.99
+
+loss:
+  type: cosine
+
+training:
+  epochs: 1
+  warmup_epochs: 0
+  base_lr: 0.1
+  weight_decay: 1e-6
+  optimizer: sgd
+  momentum: 0.9
+  grad_clip: null
+  amp: true
+  save_interval: 1
+  log_interval: 1
+  knn_interval: 1
+  subset_knn_size: 200
+  device: cuda
+
+scheduler:
+  type: cosine
+  final_lr: 0.0
+
+daw:
+  enabled: true
+  weighting: softmax
+  softmax_tau: 0.5
+  clip_min: 0.5
+  clip_max: 2.0
+  ema_alpha: 0.0
+  difficulty_norm: batch
+
+curriculum:
+  enabled: false

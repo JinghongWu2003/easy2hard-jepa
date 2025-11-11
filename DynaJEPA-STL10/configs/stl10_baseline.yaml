@@ -1,0 +1,52 @@
+run_name: stl10_baseline
+seed: 42
+
+data:
+  dataset_root: ./data
+  batch_size: 256
+  num_workers: 8
+  pin_memory: true
+  context_crop_ratio: 0.6
+  target_crop_ratio: 0.4
+  drop_last: true
+
+model:
+  encoder: resnet18
+  feature_dim: 512
+  projector:
+    hidden_dim: 1024
+    output_dim: 512
+    num_layers: 2
+  predictor:
+    hidden_dim: 512
+    output_dim: 512
+    num_layers: 2
+  ema_momentum: 0.996
+
+loss:
+  type: cosine
+
+training:
+  epochs: 200
+  warmup_epochs: 10
+  base_lr: 0.3
+  weight_decay: 1.5e-6
+  optimizer: lars
+  momentum: 0.9
+  grad_clip: null
+  amp: true
+  save_interval: 10
+  log_interval: 10
+  knn_interval: 20
+  subset_knn_size: 2000
+  device: cuda
+
+scheduler:
+  type: cosine
+  final_lr: 0.0
+
+daw:
+  enabled: false
+
+curriculum:
+  enabled: false
