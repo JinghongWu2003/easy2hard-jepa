@@ -85,7 +85,10 @@ class STL10PairDataset(Dataset):
         base_idx = self.indices[idx]
         img, _ = self.base[base_idx]
         context, target = self.transform(img)
-        return context, target, base_idx
+        # Return the position inside the subset (0..len(indices)-1) so callers such as
+        # the DifficultyBuffer can size their state using ``len(dataset)`` without
+        # needing to know whether STL10 was subsetted.
+        return context, target, idx
 
 
 def _build_eval_transform(train: bool) -> transforms.Compose:
