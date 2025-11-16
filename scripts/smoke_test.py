@@ -5,6 +5,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+import _path_setup  # noqa: F401
+
 from dynajepa.training.trainer import PretrainTrainer
 from dynajepa.utils.config import load_config
 

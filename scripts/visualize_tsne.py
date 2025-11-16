@@ -5,6 +5,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+import _path_setup  # noqa: F401
+
 import torch
 
 from dynajepa.data.stl10 import create_labeled_loader
