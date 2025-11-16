@@ -3,5 +3,7 @@ __pycache__/
 outputs/
 runs/
 data/
+!src/dynajepa/data/
+!src/dynajepa/data/**
 .DS_Store
 *.pt
